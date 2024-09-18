@@ -23,6 +23,8 @@ pub(crate) enum Action {
     Uninstall,
     /// Read and modify settings
     Config(ConfigArgs),
+    /// Set a custom prompt
+    SetPrompt(String),
     /// Run on the prepare-commit-msg hook
     PrepareCommitMsg(PrepareCommitMsgArgs),
 }
