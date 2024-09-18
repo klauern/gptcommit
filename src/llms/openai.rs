@@ -74,8 +74,8 @@ impl OpenAIClient {
         }
 
         // Validate the model name
-        if let Err(e) = Tokenizer::from_model_name(&model) {
-            bail!("Invalid or unsupported OpenAI model: {}. Error: {}", model, e);
+        if !tiktoken_rs::get_completion_max_tokens(&model, "").is_ok() {
+            bail!("Invalid or unsupported OpenAI model: {}", model);
         }
 
         if let Some(proxy) = settings.proxy {
