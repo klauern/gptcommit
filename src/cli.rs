@@ -28,3 +28,15 @@ pub(crate) enum Action {
     /// Run on the prepare-commit-msg hook
     PrepareCommitMsg(PrepareCommitMsgArgs),
 }
+
+#[derive(Subcommand, Debug)]
+pub(crate) enum ConfigAction {
+    /// Show the current configuration
+    Show,
+    /// Set a configuration value
+    Set { key: String, value: String },
+    /// Delete a configuration value
+    Delete { key: String },
+    /// Set a custom prompt
+    SetPrompt(String),
+}
