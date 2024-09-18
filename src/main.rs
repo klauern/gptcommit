@@ -19,7 +19,7 @@ use log::LevelFilter;
 use settings::Settings;
 use simple_logger::SimpleLogger;
 
-use crate::cli::Action;
+use crate::cli::{Action, ConfigAction};
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -40,11 +40,20 @@ async fn main() -> Result<()> {
     debug!("Settings: {:?}", settings);
 
     match cli_args.action {
-        Action::Config(cli_args) => actions::config::main(settings, cli_args).await,
+        Action::Config(config_args) => match config_args.action {
+            ConfigAction::Show => show_config(&settings),
+            _ => actions::config::main(settings, config_args).await,
+        },
         Action::Install => actions::install::main(settings).await,
         Action::Uninstall => actions::uninstall::main(settings).await,
         Action::PrepareCommitMsg(cli_args) => {
             actions::prepare_commit_msg::main(settings, cli_args).await
         }
     }
+}
+
+fn show_config(settings: &Settings) -> Result<()> {
+    println!("Current Configuration:");
+    println!("{:#?}", settings);
+    Ok(())
 }
