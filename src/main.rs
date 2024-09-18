@@ -19,7 +19,7 @@ use log::LevelFilter;
 use settings::Settings;
 use simple_logger::SimpleLogger;
 
-use crate::cli::{Action, ConfigAction};
+use crate::cli::Action;
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -45,6 +45,12 @@ async fn main() -> Result<()> {
         Action::Uninstall => actions::uninstall::main(settings).await,
         Action::PrepareCommitMsg(cli_args) => {
             actions::prepare_commit_msg::main(settings, cli_args).await
+        },
+        Action::SetPrompt { prompt } => {
+            // Handle SetPrompt action
+            println!("Setting custom prompt: {}", prompt);
+            // You might want to update the settings or perform other actions here
+            Ok(())
         }
     }
 }
