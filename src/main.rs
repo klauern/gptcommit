@@ -55,8 +55,3 @@ async fn main() -> Result<()> {
     }
 }
 
-fn show_config(settings: &Settings) -> Result<()> {
-    println!("Current Configuration:");
-    println!("{:#?}", settings);
-    Ok(())
-}
