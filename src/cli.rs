@@ -24,7 +24,7 @@ pub(crate) enum Action {
     /// Read and modify settings
     Config(ConfigArgs),
     /// Set a custom prompt
-    SetPrompt(String),
+    SetPrompt { prompt: String },
     /// Run on the prepare-commit-msg hook
     PrepareCommitMsg(PrepareCommitMsgArgs),
 }
@@ -38,5 +38,5 @@ pub(crate) enum ConfigAction {
     /// Delete a configuration value
     Delete { key: String },
     /// Set a custom prompt
-    SetPrompt(String),
+    SetPrompt { prompt: String },
 }

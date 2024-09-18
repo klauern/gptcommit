@@ -40,10 +40,7 @@ async fn main() -> Result<()> {
     debug!("Settings: {:?}", settings);
 
     match cli_args.action {
-        Action::Config(config_args) => match config_args.action {
-            ConfigAction::Show => show_config(&settings),
-            _ => actions::config::main(settings, config_args).await,
-        },
+        Action::Config(config_args) => actions::config::main(settings, config_args).await,
         Action::Install => actions::install::main(settings).await,
         Action::Uninstall => actions::uninstall::main(settings).await,
         Action::PrepareCommitMsg(cli_args) => {
