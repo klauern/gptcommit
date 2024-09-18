@@ -6,7 +6,7 @@ use std::time::Duration;
 use async_trait::async_trait;
 
 use reqwest::{tls, Proxy};
-use tiktoken_rs::{async_openai::get_chat_completion_max_tokens, get_completion_max_tokens};
+use tiktoken_rs::{async_openai::get_chat_completion_max_tokens, get_completion_max_tokens, tokenizer::Tokenizer};
 
 use crate::{settings::OpenAISettings, util::HTTP_USER_AGENT};
 use async_openai::{
@@ -71,6 +71,11 @@ impl OpenAIClient {
         let model = settings.model.unwrap_or_default();
         if api_base == OPENAI_API_BASE && model.is_empty() {
             bail!("No OpenAI model configured. Please choose a valid model to use.");
+        }
+
+        // Validate the model name
+        if let Err(e) = Tokenizer::from_model_name(&model) {
+            bail!("Invalid or unsupported OpenAI model: {}. Error: {}", model, e);
         }
 
         if let Some(proxy) = settings.proxy {
