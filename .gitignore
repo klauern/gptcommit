@@ -16,3 +16,4 @@ target/
 .env
 TODO
 TODO.md
+.aider*

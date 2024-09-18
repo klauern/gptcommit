@@ -45,7 +45,7 @@ async fn main() -> Result<()> {
         Action::Uninstall => actions::uninstall::main(settings).await,
         Action::PrepareCommitMsg(cli_args) => {
             actions::prepare_commit_msg::main(settings, cli_args).await
-        },
+        }
         Action::SetPrompt { prompt } => {
             // Handle SetPrompt action
             println!("Setting custom prompt: {}", prompt);
@@ -54,4 +54,3 @@ async fn main() -> Result<()> {
         }
     }
 }
-
